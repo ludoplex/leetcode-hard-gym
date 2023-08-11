@@ -68,11 +68,9 @@ class LeetCodeEnv(gym.Env):
 
         time.sleep(sub.timeout)
 
-        submission_result = self.api_instance.submissions_detail_id_check_get(
+        return self.api_instance.submissions_detail_id_check_get(
             id=submission_id.submission_id
         )
-
-        return submission_result
 
     def __calculate_reward(self, submission_result):
         if submission_result == {'state': 'STARTED'}:
@@ -90,12 +88,10 @@ class LeetCodeEnv(gym.Env):
         return status_msg == 'Accepted', status_msg
     
     def __wait_for_cooldown(self):
-        if self.last_run == None:
-            self.last_run = datetime.now()
-        else:
+        if self.last_run != None:
             while (datetime.now() - self.last_run).total_seconds() < self.cooldown:
                 time.sleep(0.1)
-            self.last_run = datetime.now()
+        self.last_run = datetime.now()
 
     def is_done(self):
         return self.reward
