@@ -37,8 +37,7 @@ def id_from_slug(slug: str, api_instance) -> str:
               operation_name="getQuestionDetail",
       )
     response = ast.literal_eval(str(api_instance.graphql_post(body=graphql_request)))
-    frontend_id = response['data']['question']['question_id']
-    return frontend_id
+    return response['data']['question']['question_id']
 
 def metadata_from_slug(slug: str, api_instance) -> str:
     """
@@ -56,8 +55,7 @@ def metadata_from_slug(slug: str, api_instance) -> str:
               operation_name="getQuestionDetail",
     )
     response = ast.literal_eval(str(api_instance.graphql_post(body=graphql_request)))
-    metadata = response['data']['question']
-    return metadata
+    return response['data']['question']
 
 
 class SubmissionFormatter(ABC):

@@ -37,8 +37,7 @@ def get_code_snippets(url):
     data = dict(json.loads(script_tag.string))
     queries = data['props']['pageProps']['dehydratedState']['queries']
     query = [i for i in queries if 'question' in i['state']['data'] and 'codeSnippets' in i['state']['data']['question']][0]
-    code_snippets = query["state"]["data"]["question"]["codeSnippets"]
-    return code_snippets
+    return query["state"]["data"]["question"]["codeSnippets"]
 
 url = "https://leetcode.com/graphql/"
 
